@@ -1,7 +1,5 @@
 const highlightTitleClass = '.css-1h1fine-titleSubtitleContainer';
 
-document.body.style.border = "5px solid green"; // Just to confirm the script is running
-
 function removeSection(section, checkTitle = false, titleText = "") {
     if (checkTitle && titleText !== "") {
         const titleElement = section.querySelector(highlightTitleClass);
