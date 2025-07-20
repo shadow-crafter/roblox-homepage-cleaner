@@ -20,7 +20,7 @@ function updateSections(firstSections, recomendedSections) {
     });
 }
 
-const observer = new MutationObserver((mutationsList, _) => {
+const observer = new MutationObserver(() => {
     let firstSections = document.querySelectorAll('.game-sort-carousel-wrapper');
     let recomendedSections = document.querySelectorAll('[data-testid="home-page-game-grid"]');
 
