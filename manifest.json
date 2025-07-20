@@ -4,11 +4,20 @@
   "version": "1.0",
 
   "description": "Helps clean up the Roblox homepage by removing unwanted elements.",
+  "homepage_url": "https://github.com/shadow-crafter/roblox-homepage-cleaner",
 
   "icons": {
     "48": "icons/border-48.png"
   },
 
+  "permissions": ["activeTab"],
+
+  "browser_action": {
+    "default_icon": "icons/border-48.png",
+    "default_title": "Roblox Homepage Cleaner",
+    "default_popup": "popup/homepage-cleaner.html"
+  },
+  
   "content_scripts": [
     {
       "matches": ["*://*.roblox.com/home"],
