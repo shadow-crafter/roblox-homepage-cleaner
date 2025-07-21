@@ -7,7 +7,7 @@
   "homepage_url": "https://github.com/shadow-crafter/roblox-homepage-cleaner",
 
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "icons/icon-48.png"
   },
 
   "permissions": ["activeTab", "storage"],
