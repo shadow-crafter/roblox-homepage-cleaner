@@ -12,12 +12,6 @@
 
   "permissions": ["activeTab", "storage"],
 
-  "browser_action": {
-    "default_icon": "icons/border-48.png",
-    "default_title": "Roblox Homepage Cleaner",
-    "default_popup": "popup/homepage-cleaner.html"
-  },
-
   "options_ui": {
     "page": "options.html"
   },
@@ -31,7 +25,7 @@
 
   "browser_specific_settings": {
     "gecko": {
-      "id": "addon@example.com"
+      "id": "{16c22903-c58b-40bb-a42f-e3685b09cb67}"
     }
   }
 
