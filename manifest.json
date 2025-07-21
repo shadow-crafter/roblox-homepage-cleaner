@@ -13,7 +13,7 @@
   "permissions": ["activeTab", "storage"],
 
   "options_ui": {
-    "page": "options.html"
+    "page": "options/options.html"
   },
   
   "content_scripts": [
