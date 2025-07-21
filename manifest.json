@@ -10,18 +10,29 @@
     "48": "icons/border-48.png"
   },
 
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
 
   "browser_action": {
     "default_icon": "icons/border-48.png",
     "default_title": "Roblox Homepage Cleaner",
     "default_popup": "popup/homepage-cleaner.html"
   },
+
+  "options_ui": {
+    "page": "options.html"
+  },
   
   "content_scripts": [
     {
       "matches": ["*://*.roblox.com/home"],
-      "js": ["homepage-cleaner.js"]
+      "js": ["content_scripts/homepage-cleaner.js"]
     }
-  ]
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com"
+    }
+  }
+
 }
