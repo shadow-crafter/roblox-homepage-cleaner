@@ -4,6 +4,14 @@ body {
     font-size: 16px;
 }
 
+h1 {
+    text-align: center;
+}
+
+.info-paragraph {
+    text-align: center;
+}
+
 .switch {
     position: relative;
     display: inline-block;
@@ -48,10 +56,27 @@ input:checked + .slider:before {
 }
 
 button {
-    display: inline-block;
+    display: block;
     border: 2px solid black;
     border-radius: 5px;
     cursor: pointer;
     
     font-size: 18px;
+    margin: auto;
+}
+
+#options-form {
+    width: 90%;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#extra-info {
+    width: 90%;
+    margin: 10px auto;
+    padding: 20px;
+    text-align: center;
 }
