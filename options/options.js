@@ -9,7 +9,7 @@ function saveOptions(e) {
 function restoreOptions() {
     function setCurrentChoice(result) {
         document.querySelector("#remove-highlights").checked = result.removeHighlights;
-        document.querySelector("#remove-recommended").checked = result.removeReccomended;
+        document.querySelector("#remove-recommended").checked = result.removeRecommended;
     }
 
     function onError(error) {
