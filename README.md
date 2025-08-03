@@ -25,3 +25,13 @@ After making your selections and saving, <b>upon reloading the [Roblox homepage]
 Contributing is welcome! This was mostly created as a side project for fun to learn some web development, but contributions are still welcome.
 
 This project is also licenced under the MIT licence, so feel free to fork it and make it your own! 😊
+
+## PLANNED FEATURES:
+
+### -Ability to remove continue, friends, and favorites
+
+### -Ability to add pinned games
+
+API NOTES:
+https://thumbnails.roblox.com/v1/games/icons?universeIds=UNIVERSEIDHERE&size=50x50&format=Png&isCircular=false to get the place icon
+https://apis.roblox.com/universes/v1/places/PLACEID/universe to get the universe ID
