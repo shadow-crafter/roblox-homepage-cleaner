@@ -1,12 +1,12 @@
 import "./storage-handler.js";
 
 const browserAPI =
-  typeof browser !== "undefined" ? window.browser : window.chrome;
+  typeof browser !== "undefined" ? self.browser : self.chrome;
 
 browserAPI.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log("Got a message!!");
   if (request.action === "getOptions") {
-    window.storageUtils
+    self.storageUtils
       .getOptions()
       .then((options) => {
         sendResponse({ result: options });

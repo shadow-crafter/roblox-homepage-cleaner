@@ -1,3 +1,6 @@
+const runtimeAPI =
+  typeof browser !== "undefined" ? browser.runtime : chrome.runtime;
+
 const highlightTitleClass = ".css-1h1fine-titleSubtitleContainer";
 const firstSectionsClass = ".game-sort-carousel-wrapper";
 const reccomendedSectionsId = '[data-testid="home-page-game-grid"]';
@@ -53,7 +56,7 @@ function init() {
 const observer = new MutationObserver(init);
 observer.observe(document.body, { childList: true, subtree: true });
 
-browser.runtime
+runtimeAPI
   .sendMessage({ action: "getOptions" })
   .then(applyOptions)
   .catch((error) => {

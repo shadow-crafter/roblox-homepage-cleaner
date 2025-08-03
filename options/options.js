@@ -6,11 +6,11 @@ async function saveOptions(e) {
     removeRecommended: document.querySelector("#remove-recommended").checked,
   };
 
-  await window.storageUtils.saveOptions(options);
+  await self.storageUtils.saveOptions(options);
 }
 
 async function restoreOptions() {
-  const options = await window.storageUtils.getOptions();
+  const options = await self.storageUtils.getOptions();
 
   document.querySelector("#remove-highlights").checked =
     options.removeHighlights;
