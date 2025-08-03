@@ -30,9 +30,10 @@ function updateSections(firstSections, recommendedSections) {
   }
 }
 
-function updateSettings(settings) {
-  removeHighlights = settings.removeHighlights;
-  removeRecommended = settings.removeRecommended;
+async function applyOptions() {
+  const options = await window.storageUtils.getOptions();
+  removeHighlights = options.removeHighlights;
+  removeRecommended = options.removeRecommended;
   init();
 }
 
@@ -41,12 +42,10 @@ function init() {
   let recommendedSections = document.querySelectorAll(reccomendedSectionsId);
 
   updateSections(firstSections, recommendedSections);
-  console.log("Homepage sections updated");
+  //console.log("Homepage sections updated");
 }
 
 const observer = new MutationObserver(init);
 observer.observe(document.body, { childList: true, subtree: true });
 
-browser.storage.sync
-  .get(["removeHighlights", "removeRecommended"])
-  .then(updateSettings);
+applyOptions();

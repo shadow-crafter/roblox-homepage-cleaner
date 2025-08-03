@@ -1,28 +1,23 @@
-function saveOptions(e) {
+async function saveOptions(e) {
   e.preventDefault();
-  browser.storage.sync.set({
+
+  const options = {
     removeHighlights: document.querySelector("#remove-highlights").checked,
     removeRecommended: document.querySelector("#remove-recommended").checked,
-  });
+  };
+
+  await window.storageUtils.saveOptions(options);
 }
 
-function restoreOptions() {
-  function setCurrentChoice(result) {
-    document.querySelector("#remove-highlights").checked =
-      result.removeHighlights;
-    document.querySelector("#remove-recommended").checked =
-      result.removeRecommended;
-  }
+async function restoreOptions() {
+  const options = await window.storageUtils.getOptions();
 
-  function onError(error) {
-    console.error(`Error: ${error}`);
-  }
+  document.querySelector("#remove-highlights").checked =
+    options.removeHighlights;
+  document.querySelector("#remove-recommended").checked =
+    options.removeRecommended;
 
-  let getting = browser.storage.sync.get({
-    removeHighlights: true,
-    removeRecommended: true,
-  });
-  getting.then(setCurrentChoice, onError);
+  console.log("Options have been restored!");
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
