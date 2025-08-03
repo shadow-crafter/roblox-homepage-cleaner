@@ -30,8 +30,13 @@ function updateSections(firstSections, recommendedSections) {
   }
 }
 
-async function applyOptions() {
-  const options = await window.storageUtils.getOptions();
+async function applyOptions(responce) {
+  console.log("Got responce from background! => ", responce);
+  if (responce === undefined || responce.result === undefined) {
+    console.error("Failed to get options from responce.");
+  }
+  options = responce.result;
+
   removeHighlights = options.removeHighlights;
   removeRecommended = options.removeRecommended;
   init();
@@ -48,4 +53,9 @@ function init() {
 const observer = new MutationObserver(init);
 observer.observe(document.body, { childList: true, subtree: true });
 
-applyOptions();
+browser.runtime
+  .sendMessage({ action: "getOptions" })
+  .then(applyOptions)
+  .catch((error) => {
+    console.error("Error sending message to background script => ", error);
+  });

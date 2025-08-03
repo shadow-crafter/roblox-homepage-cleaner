@@ -16,10 +16,16 @@
     "page": "options/options.html"
   },
 
+  "background": {
+    "scripts": ["background.js"],
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
   "content_scripts": [
     {
       "matches": ["*://*.roblox.com/home"],
-      "js": ["storage-handler.js", "content_scripts/homepage-cleaner.js"]
+      "js": ["content_scripts/homepage-cleaner.js"]
     }
   ],
 
