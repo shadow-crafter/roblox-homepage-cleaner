@@ -66,11 +66,8 @@ async function applyOptions(responce) {
   }
   options = responce.result;
 
-  settings.removeHighlights = options.removeHighlights;
-  settings.removeRecommended = options.removeRecommended;
-  settings.removeContinue = options.removeContinue;
-  settings.removeFavorites = options.removeFavorites;
-  settings.removeFriends = options.removeFriends;
+  Object.assign(settings, options);
+
   init();
 }
 
