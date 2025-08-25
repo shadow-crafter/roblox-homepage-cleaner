@@ -2,14 +2,17 @@ const runtimeAPI =
   typeof browser !== "undefined" ? browser.runtime : chrome.runtime;
 
 const highlightTitleClass = ".css-1h1fine-titleSubtitleContainer";
-const firstSectionsClass = ".game-sort-carousel-wrapper";
+const gameSectionsClass = ".game-sort-carousel-wrapper";
 const friendsSectionClass = ".friend-carousel-container";
 const reccomendedSectionsId = '[data-testid="home-page-game-grid"]';
 
-let removeHighlights = false;
-let removeRecommended = false;
-let removeContinue = false;
-let removeFavorites = false;
+const settings = {
+  removeHighlights: false,
+  removeRecommended: false,
+  removeContinue: false,
+  removeFavorites: false,
+  removeFriends: false,
+};
 
 function removeSection(section, titleText = "") {
   if (titleText !== "") {
@@ -22,38 +25,26 @@ function removeSection(section, titleText = "") {
   }
 }
 
-function updateSections(firstSections, recommendedSections) {
+function updateSections(sections) {
   //this needs refactoring, definitely can be written better
-  if (
-    !removeHighlights &&
-    !removeRecommended &&
-    !removeContinue &&
-    !removeFavorites
-  )
-    return;
+  const removalMap = {
+    removeHighlights: {
+      section: sections.gameSections,
+      titleText: "Today's Picks",
+    },
+    removeContinue: { section: sections.gameSections, titleText: "Continue" },
+    removeFavorites: { section: sections.gameSections, titleText: "Favorites" },
+    removeRecommended: { section: sections.recommendedSections, titleText: "" },
+    removeFriends: { section: sections.friendSection, titleText: "" },
+  };
 
-  if (removeHighlights) {
-    firstSections.forEach((section) => {
-      removeSection(section, "Today's Picks");
-    });
-  }
-
-  if (removeContinue) {
-    firstSections.forEach((section) => {
-      removeSection(section, "Continue");
-    });
-  }
-
-  if (removeFavorites) {
-    firstSections.forEach((section) => {
-      removeSection(section, "Favorites");
-    });
-  }
-
-  if (removeRecommended) {
-    recommendedSections.forEach((section) => {
-      removeSection(section);
-    });
+  for (const setting in settings) {
+    const mapInfo = removalMap[setting];
+    if (mapInfo && settings[setting] == true) {
+      mapInfo.section.forEach((section) => {
+        removeSection(section, mapInfo.titleText);
+      });
+    }
   }
 }
 
@@ -64,16 +55,19 @@ async function applyOptions(responce) {
   }
   options = responce.result;
 
-  removeHighlights = options.removeHighlights;
-  removeRecommended = options.removeRecommended;
+  settings.removeHighlights = options.removeHighlights;
+  settings.removeRecommended = options.removeRecommended;
   init();
 }
 
 function init() {
-  let firstSections = document.querySelectorAll(firstSectionsClass);
-  let recommendedSections = document.querySelectorAll(reccomendedSectionsId);
+  let sections = {
+    gameSections: document.querySelectorAll(gameSectionsClass),
+    recommendedSections: document.querySelectorAll(reccomendedSectionsId),
+    friendSection: document.querySelectorAll(friendsSectionClass),
+  };
 
-  updateSections(firstSections, recommendedSections);
+  updateSections(sections);
   //console.log("Homepage sections updated");
 }
 
