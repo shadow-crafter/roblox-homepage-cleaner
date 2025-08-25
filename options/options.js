@@ -1,13 +1,27 @@
+const optionIds = [
+  "remove-highlights",
+  "remove-recommended",
+  "remove-continue",
+  "remove-favorites",
+  "remove-friends",
+];
+
+//helper function to convert string into camel case. This is needed to maintain the original formatting
+const toCamelCase = (str) => {
+  return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+};
+
 async function saveOptions(e) {
   e.preventDefault();
 
-  const options = {
-    removeHighlights: document.querySelector("#remove-highlights").checked,
-    removeRecommended: document.querySelector("#remove-recommended").checked,
-    removeContinue: document.querySelector("#remove-continue").checked,
-    removeFavorites: document.querySelector("#remove-favorites").checked,
-    removeFriends: document.querySelector("#remove-friends").checked,
-  };
+  //create options object based on the ids
+  const options = optionIds.reduce((obj, id) => {
+    const camelCaseId = toCamelCase(id); //retain formatting
+    obj[camelCaseId] = document.querySelector(`#${id}`).checked;
+    return obj;
+  }, {});
+
+  console.log("options: ", options);
 
   await self.storageUtils.saveOptions(options);
 }
@@ -15,13 +29,9 @@ async function saveOptions(e) {
 async function restoreOptions() {
   const options = await self.storageUtils.getOptions();
 
-  document.querySelector("#remove-highlights").checked =
-    options.removeHighlights;
-  document.querySelector("#remove-recommended").checked =
-    options.removeRecommended;
-  document.querySelector("#remove-continue").checked = options.removeContinue;
-  document.querySelector("#remove-favorites").checked = options.removeFavorites;
-  document.querySelector("#remove-friends").checked = options.removeFriends;
+  optionIds.forEach((id) => {
+    document.querySelector(`#${id}`).checked = options[toCamelCase(id)];
+  });
 
   console.log("Options have been restored!");
 }
