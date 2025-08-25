@@ -9,6 +9,7 @@ const reccomendedSectionsId = '[data-testid="home-page-game-grid"]';
 let removeHighlights = false;
 let removeRecommended = false;
 let removeContinue = false;
+let removeFavorites = false;
 
 function removeSection(section, titleText = "") {
   if (titleText !== "") {
@@ -22,17 +23,33 @@ function removeSection(section, titleText = "") {
 }
 
 function updateSections(firstSections, recommendedSections) {
-  if (!removeHighlights && !removeRecommended && !removeContinue) return;
+  //this needs refactoring, definitely can be written better
+  if (
+    !removeHighlights &&
+    !removeRecommended &&
+    !removeContinue &&
+    !removeFavorites
+  )
+    return;
+
   if (removeHighlights) {
     firstSections.forEach((section) => {
       removeSection(section, "Today's Picks");
     });
   }
+
   if (removeContinue) {
     firstSections.forEach((section) => {
       removeSection(section, "Continue");
     });
   }
+
+  if (removeFavorites) {
+    firstSections.forEach((section) => {
+      removeSection(section, "Favorites");
+    });
+  }
+
   if (removeRecommended) {
     recommendedSections.forEach((section) => {
       removeSection(section);
