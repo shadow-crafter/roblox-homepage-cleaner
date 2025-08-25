@@ -3,13 +3,15 @@ const runtimeAPI =
 
 const highlightTitleClass = ".css-1h1fine-titleSubtitleContainer";
 const firstSectionsClass = ".game-sort-carousel-wrapper";
+const friendsSectionClass = ".friend-carousel-container";
 const reccomendedSectionsId = '[data-testid="home-page-game-grid"]';
 
 let removeHighlights = false;
 let removeRecommended = false;
+let removeContinue = false;
 
-function removeSection(section, checkTitle = false, titleText = "") {
-  if (checkTitle && titleText !== "") {
+function removeSection(section, titleText = "") {
+  if (titleText !== "") {
     const titleElement = section.querySelector(highlightTitleClass);
     if (titleElement && titleElement.ariaLabel.includes(titleText)) {
       section.style.display = "none";
@@ -20,10 +22,15 @@ function removeSection(section, checkTitle = false, titleText = "") {
 }
 
 function updateSections(firstSections, recommendedSections) {
-  if (!removeHighlights && !removeRecommended) return;
+  if (!removeHighlights && !removeRecommended && !removeContinue) return;
   if (removeHighlights) {
     firstSections.forEach((section) => {
-      removeSection(section, true, "Today's Picks");
+      removeSection(section, "Today's Picks");
+    });
+  }
+  if (removeContinue) {
+    firstSections.forEach((section) => {
+      removeSection(section, "Continue");
     });
   }
   if (removeRecommended) {
