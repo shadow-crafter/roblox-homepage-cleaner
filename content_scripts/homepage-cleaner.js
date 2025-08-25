@@ -26,16 +26,27 @@ function removeSection(section, titleText = "") {
 }
 
 function updateSections(sections) {
-  //this needs refactoring, definitely can be written better
   const removalMap = {
     removeHighlights: {
       section: sections.gameSections,
       titleText: "Today's Picks",
     },
-    removeContinue: { section: sections.gameSections, titleText: "Continue" },
-    removeFavorites: { section: sections.gameSections, titleText: "Favorites" },
-    removeRecommended: { section: sections.recommendedSections, titleText: "" },
-    removeFriends: { section: sections.friendSection, titleText: "" },
+    removeContinue: {
+      section: sections.gameSections,
+      titleText: "Continue",
+    },
+    removeFavorites: {
+      section: sections.gameSections,
+      titleText: "Favorites",
+    },
+    removeRecommended: {
+      section: sections.recommendedSections,
+      titleText: "",
+    },
+    removeFriends: {
+      section: sections.friendSection,
+      titleText: "",
+    },
   };
 
   for (const setting in settings) {
