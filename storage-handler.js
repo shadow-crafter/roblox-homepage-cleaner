@@ -1,5 +1,4 @@
-self.browserAPI =
-  typeof browser !== "undefined" ? self.browser : self.chrome;
+self.browserAPI = typeof browser !== "undefined" ? self.browser : self.chrome;
 
 //create a global object for shared functions
 if (!self.storageUtils) {
@@ -11,6 +10,9 @@ self.storageUtils.getOptions = async function () {
     const defaults = {
       removeHighlights: false,
       removeRecommended: false,
+      removeContinue: false,
+      removeFavorites: false,
+      removeFriends: false,
     };
 
     const options = await browserAPI.storage.sync.get(defaults);
