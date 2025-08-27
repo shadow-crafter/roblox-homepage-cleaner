@@ -20,22 +20,20 @@ async function fetchData(url, id) {
 
     const data = await response.json();
 
-    console.log(`Game data fetched: ${gameData}`);
-
     return data;
   } catch (error) {
     console.error(`There was a problem with the fetch operation: ${error}`);
   }
 }
 
-export async function getGameData(placeId) {
+export async function getGameInfo(placeId) {
   const gameData = await fetchData(gameInfoUrl, placeId);
+  console.log(`Game data fetched: ${JSON.stringify(gameData[0])}`);
 
-  console.log(`Game data fetched: ${gameData}`);
-
-  const universeId = gameData.data[0].universeId;
+  const universeId = gameData[0].universeId;
   const thumbnailData = await fetchData(universeThumbnailUrl, universeId);
+  console.log(`Thumbnail data fetched: ${JSON.stringify(thumbnailData)}`);
 
-  const gameInfo = { gameData: gameData, thumbnailData: thumbnailData };
+  const gameInfo = { gameData: gameData[0], thumbnailData: thumbnailData };
   return gameInfo;
 }

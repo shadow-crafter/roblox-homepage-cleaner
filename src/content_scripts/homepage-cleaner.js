@@ -63,12 +63,29 @@ async function applyOptions(responce) {
   console.log("Got responce from background! => ", responce);
   if (responce === undefined || responce.result === undefined) {
     console.error("Failed to get options from responce.");
+  } else {
+    options = responce.result;
+
+    Object.assign(settings, options);
+
+    init();
   }
-  options = responce.result;
+}
 
-  Object.assign(settings, options);
+async function getGameInfo(placeId) {
+  let gameInfo;
+  const responce = await runtimeAPI.sendMessage({
+    action: "getGameInfo",
+    placeId: placeId,
+  });
 
-  init();
+  if (responce === undefined || responce.result === undefined) {
+    console.error("Failed to get options from responce.");
+  } else {
+    gameInfo = responce.result;
+  }
+  console.log(`Game info for ${placeId}: ${gameInfo}`);
+  return gameInfo;
 }
 
 function init() {

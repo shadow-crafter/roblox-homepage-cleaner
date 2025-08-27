@@ -1,4 +1,4 @@
-import { getGameData } from "../modules/api-info-handler.js";
+import { getGameInfo } from "../modules/api-info-handler.js";
 import "../modules/storage-handler.js";
 
 const browserAPI = typeof browser !== "undefined" ? self.browser : self.chrome;
@@ -15,10 +15,10 @@ browserAPI.runtime.onMessage.addListener((request, _, sendResponse) => {
         console.error(`Error getting options: ${error}`);
         sendResponse({ error: error.message });
       });
-  } else if (request.action === "getGameData") {
-    getGameData()
-      .then((gameData) => {
-        sendResponse({ result: gameData });
+  } else if (request.action === "getGameInfo") {
+    getGameInfo(request.placeId)
+      .then((gameInfo) => {
+        sendResponse({ result: gameInfo });
       })
       .catch((error) => {
         console.error(`Error getting options: ${error}`);
