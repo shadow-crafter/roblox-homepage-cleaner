@@ -3,7 +3,7 @@ import "../modules/storage-handler.js";
 
 const browserAPI = typeof browser !== "undefined" ? self.browser : self.chrome;
 
-browserAPI.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browserAPI.runtime.onMessage.addListener((request, _, sendResponse) => {
   console.log("Got a message!!");
   if (request.action === "getOptions") {
     self.storageUtils
