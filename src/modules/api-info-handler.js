@@ -28,7 +28,7 @@ async function fetchData(url, id) {
   }
 }
 
-async function getGameData(placeId) {
+export async function getGameData(placeId) {
   const gameData = await fetchData(gameInfoUrl, placeId);
 
   console.log(`Game data fetched: ${gameData}`);

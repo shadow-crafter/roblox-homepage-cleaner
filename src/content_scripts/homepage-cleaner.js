@@ -1,3 +1,5 @@
+import {getGameData} from "../modules/api-info-handler.js";
+
 const runtimeAPI =
   typeof browser !== "undefined" ? browser.runtime : chrome.runtime;
 

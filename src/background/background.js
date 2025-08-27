@@ -1,7 +1,6 @@
-import "./storage-handler.js";
+import "../modules/storage-handler.js";
 
-const browserAPI =
-  typeof browser !== "undefined" ? self.browser : self.chrome;
+const browserAPI = typeof browser !== "undefined" ? self.browser : self.chrome;
 
 browserAPI.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log("Got a message!!");
