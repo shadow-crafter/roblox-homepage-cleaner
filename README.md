@@ -52,7 +52,3 @@ This project is also licenced under the MIT licence, so feel free to fork it and
 ## PLANNED FEATURES:
 
 ### -Ability to add pinned games
-
-API NOTES:
-https://thumbnails.roblox.com/v1/games/icons?universeIds=UNIVERSEIDHERE&size=50x50&format=Png&isCircular=false to get the place icon
-https://apis.roblox.com/universes/v1/places/PLACEID/universe to get the universe ID
