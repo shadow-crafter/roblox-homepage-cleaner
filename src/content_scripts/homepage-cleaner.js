@@ -88,6 +88,49 @@ async function getGameInfo(placeId) {
   return gameInfo;
 }
 
+function replaceLabels(parent, replaceMap) {
+  for (const element of parent.querySelectorAll("*")) {
+    for (const replaceText in replaceMap) {
+      if (element.ariaLabel && element.ariaLabel.includes(replaceText)) {
+        element.ariaLabel = replaceMap[replaceText];
+      }
+      if (element.innerHTML && element.innerHTML.includes(replaceText)) {
+        element.innerHTML = replaceMap[replaceText];
+      }
+    }
+    replaceLabels(element, replaceMap); //should die out when no elements are left
+  }
+}
+
+function createPinnedSection() {
+  const gameSections = document.querySelectorAll(gameSectionsClass);
+  let highlightsSection;
+  for (const section of gameSections) {
+    const titleElement = section.querySelector(highlightTitleClass);
+    if (titleElement && titleElement.ariaLabel.includes("Today's Picks")) {
+      highlightsSection = section;
+      break;
+    }
+  }
+
+  if (highlightsSection) {
+    const pinnedSection = highlightsSection.cloneNode(true);
+    highlightsSection.parentElement.prepend(pinnedSection);
+    pinnedSection.style.display = "table";
+    const titleElement = pinnedSection.querySelector(highlightTitleClass);
+
+    const replaceMap = {
+      "Today's Picks": "Pinned Games",
+      "A curated selection of daily highlights":
+        "Check extension to alter the pinned games!",
+    };
+    replaceLabels(titleElement, replaceMap);
+    console.log(pinnedSection);
+  } else {
+    console.error("Could not find a highlights section to create pinned");
+  }
+}
+
 function init() {
   let sections = {
     gameSections: document.querySelectorAll(gameSectionsClass),
@@ -108,3 +151,5 @@ runtimeAPI
   .catch((error) => {
     console.error("Error sending message to background script => ", error);
   });
+
+createPinnedSection();
