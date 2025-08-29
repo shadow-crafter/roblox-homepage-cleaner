@@ -4,6 +4,9 @@ const runtimeAPI =
 const highlightTitleClass = ".css-1h1fine-titleSubtitleContainer";
 const gameSectionsClass = ".game-sort-carousel-wrapper";
 const friendsSectionClass = ".friend-carousel-container";
+const gameCarouselClass = ".game-carousel";
+const gamePillsClass = ".game-card-pills-container";
+const gameTitleClass = ".game-card-name";
 const reccomendedSectionsId = '[data-testid="home-page-game-grid"]';
 
 const settings = {
@@ -106,7 +109,7 @@ function replaceLabels(parent, replaceMap) {
   }
 }
 
-function createPinnedSection() {
+async function createPinnedSection() {
   const gameSections = document.querySelectorAll(gameSectionsClass);
   let highlightsSection;
   for (const section of gameSections) {
@@ -129,6 +132,37 @@ function createPinnedSection() {
         "Check extension to alter the pinned games!",
     };
     replaceLabels(titleElement, replaceMap);
+
+    const gameCarousel = pinnedSection.querySelector(gameCarouselClass);
+    let gameBase;
+    for (const gameElement of gameCarousel.querySelectorAll("li")) {
+      gameBase = gameElement.cloneNode(true);
+      gameElement.remove();
+    }
+
+    const dummyGameData = ["18687417158", "12334109280"]; //for testing purposes
+    for (const placeId of dummyGameData) {
+      gameInfo = await getGameInfo(placeId);
+      if (gameInfo) {
+        let gameElement = gameBase.cloneNode(true);
+        gameCarousel.appendChild(gameElement);
+        gameElement.id = gameInfo.gameData.placeId;
+        gameElement.querySelector("a").href = gameInfo.gameData.url;
+        gameElement.querySelector(gameTitleClass).title =
+          gameInfo.gameData.name;
+        gameElement.querySelector(gameTitleClass).innerHTML =
+          gameInfo.gameData.name;
+
+        const gameThumbnail = gameElement.querySelector("img");
+        gameThumbnail.src = gameInfo.thumbnailData.imageUrl;
+        gameThumbnail.alt = gameInfo.gameData.name;
+        gameThumbnail.title = gameInfo.gameData.name;
+        const pillContainer = gameElement.querySelector(gamePillsClass); //remove "event" notice if its there
+        if (pillContainer) {
+          pillContainer.remove();
+        }
+      }
+    }
   } else {
     console.error("Could not find a highlights section to create pinned");
   }

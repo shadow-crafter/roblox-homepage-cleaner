@@ -34,6 +34,9 @@ export async function getGameInfo(placeId) {
   const thumbnailData = await fetchData(universeThumbnailUrl, universeId);
   console.log(`Thumbnail data fetched: ${JSON.stringify(thumbnailData)}`);
 
-  const gameInfo = { gameData: gameData[0], thumbnailData: thumbnailData };
+  const gameInfo = {
+    gameData: gameData[0],
+    thumbnailData: thumbnailData.data[0],
+  };
   return gameInfo;
 }
