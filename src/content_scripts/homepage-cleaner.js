@@ -7,6 +7,7 @@ const friendsSectionClass = ".friend-carousel-container";
 const gameCarouselClass = ".game-carousel";
 const gamePillsClass = ".game-card-pills-container";
 const gameTitleClass = ".game-card-name";
+const gameInfoLabelClass = ".info-label";
 const reccomendedSectionsId = '[data-testid="home-page-game-grid"]';
 
 const settings = {
@@ -144,8 +145,9 @@ async function createPinnedSection() {
     for (const placeId of dummyGameData) {
       gameInfo = await getGameInfo(placeId);
       if (gameInfo) {
-        let gameElement = gameBase.cloneNode(true);
+        const gameElement = gameBase.cloneNode(true);
         gameCarousel.appendChild(gameElement);
+
         gameElement.id = gameInfo.gameData.placeId;
         gameElement.querySelector("a").href = gameInfo.gameData.url;
         gameElement.querySelector(gameTitleClass).title =
@@ -154,9 +156,17 @@ async function createPinnedSection() {
           gameInfo.gameData.name;
 
         const gameThumbnail = gameElement.querySelector("img");
-        gameThumbnail.src = gameInfo.thumbnailData.imageUrl;
-        gameThumbnail.alt = gameInfo.gameData.name;
-        gameThumbnail.title = gameInfo.gameData.name;
+        if (gameThumbnail) {
+          gameThumbnail.src = gameInfo.thumbnailData.imageUrl;
+          gameThumbnail.alt = gameInfo.gameData.name;
+          gameThumbnail.title = gameInfo.gameData.name;
+        }
+
+        const gameInfoLabel = gameElement.querySelector(gameInfoLabelClass);
+        if (gameInfoLabel) {
+          gameInfoLabel.textContent = gameInfo.gameData.builder;
+        }
+
         const pillContainer = gameElement.querySelector(gamePillsClass); //remove "event" notice if its there
         if (pillContainer) {
           pillContainer.remove();
