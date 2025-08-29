@@ -89,16 +89,20 @@ async function getGameInfo(placeId) {
 }
 
 function replaceLabels(parent, replaceMap) {
-  for (const element of parent.querySelectorAll("*")) {
+  //needs refactoring, but they need to be separate because of dom ordering
+  for (const element of parent.querySelectorAll("div")) {
     for (const replaceText in replaceMap) {
       if (element.ariaLabel && element.ariaLabel.includes(replaceText)) {
         element.ariaLabel = replaceMap[replaceText];
       }
-      if (element.innerHTML && element.innerHTML.includes(replaceText)) {
-        element.innerHTML = replaceMap[replaceText];
+    }
+  }
+  for (const element of parent.querySelectorAll("span")) {
+    for (const replaceText in replaceMap) {
+      if (element.textContent && element.textContent.includes(replaceText)) {
+        element.textContent = replaceMap[replaceText];
       }
     }
-    replaceLabels(element, replaceMap); //should die out when no elements are left
   }
 }
 
@@ -125,7 +129,6 @@ function createPinnedSection() {
         "Check extension to alter the pinned games!",
     };
     replaceLabels(titleElement, replaceMap);
-    console.log(pinnedSection);
   } else {
     console.error("Could not find a highlights section to create pinned");
   }
