@@ -8,6 +8,7 @@ const gameCarouselClass = ".game-carousel";
 const gamePillsClass = ".game-card-pills-container";
 const gameTitleClass = ".game-card-name";
 const gameInfoLabelClass = ".info-label";
+const thumbnailContainerClass = ".thumbnail-2d-container";
 const reccomendedSectionsId = '[data-testid="home-page-game-grid"]';
 
 const settings = {
@@ -16,7 +17,10 @@ const settings = {
   removeContinue: false,
   removeFavorites: false,
   removeFriends: false,
+  showPinnedSection: true,
 };
+
+let pinnedSectionCreated = false;
 
 function removeSection(section, titleText = "") {
   if (titleText !== "") {
@@ -121,7 +125,9 @@ async function createPinnedSection() {
     }
   }
 
-  if (highlightsSection) {
+  if (highlightsSection && !pinnedSectionCreated) {
+    pinnedSectionCreated = true;
+
     const pinnedSection = highlightsSection.cloneNode(true);
     highlightsSection.parentElement.prepend(pinnedSection);
     pinnedSection.style.display = "table";
@@ -160,6 +166,18 @@ async function createPinnedSection() {
           gameThumbnail.src = gameInfo.thumbnailData.imageUrl;
           gameThumbnail.alt = gameInfo.gameData.name;
           gameThumbnail.title = gameInfo.gameData.name;
+        } else {
+          //depending on loading time, sometimes image isn't created
+          const thumbnailContainer = gameElement.querySelector(
+            thumbnailContainerClass
+          );
+          if (thumbnailContainer) {
+            const newThumbnail = document.createElement("img");
+            thumbnailContainer.appendChild(newThumbnail);
+            newThumbnail.src = gameInfo.thumbnailData.imageUrl;
+            newThumbnail.alt = gameInfo.gameData.name;
+            newThumbnail.title = gameInfo.gameData.name;
+          }
         }
 
         const gameInfoLabel = gameElement.querySelector(gameInfoLabelClass);
@@ -173,8 +191,6 @@ async function createPinnedSection() {
         }
       }
     }
-  } else {
-    console.error("Could not find a highlights section to create pinned");
   }
 }
 
@@ -186,7 +202,9 @@ function init() {
   };
 
   updateSections(sections);
-  //console.log("Homepage sections updated");
+  if (settings.showPinnedSection && !pinnedSectionCreated) {
+    createPinnedSection();
+  }
 }
 
 const observer = new MutationObserver(init);
@@ -198,5 +216,3 @@ runtimeAPI
   .catch((error) => {
     console.error("Error sending message to background script => ", error);
   });
-
-createPinnedSection();
