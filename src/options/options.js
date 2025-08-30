@@ -4,6 +4,7 @@ const optionIds = [
   "remove-continue",
   "remove-favorites",
   "remove-friends",
+  "show-pinned",
 ];
 
 //helper function to convert string into camel case. This is needed to maintain the original formatting

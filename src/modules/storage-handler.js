@@ -13,6 +13,7 @@ self.storageUtils.getOptions = async function () {
       removeContinue: false,
       removeFavorites: false,
       removeFriends: false,
+      showPinned: false,
     };
 
     const options = await browserAPI.storage.sync.get(defaults);

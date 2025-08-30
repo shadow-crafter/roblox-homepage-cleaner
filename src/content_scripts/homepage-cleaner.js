@@ -17,12 +17,15 @@ const settings = {
   removeContinue: false,
   removeFavorites: false,
   removeFriends: false,
-  showPinnedSection: true,
+  showPinned: false,
 };
 
 let pinnedSectionCreated = false;
 
 function removeSection(section, titleText = "") {
+  if (section.getAttribute("id") == "pinned-section") {
+    return;
+  }
   if (titleText !== "") {
     const titleElement = section.querySelector(highlightTitleClass);
     if (titleElement && titleElement.ariaLabel.includes(titleText)) {
@@ -58,6 +61,9 @@ function updateSections(sections) {
   };
 
   for (const setting in settings) {
+    if (!setting.includes("remove")) {
+      continue;
+    }
     const mapInfo = removalMap[setting];
     if (mapInfo && settings[setting] == true) {
       mapInfo.section.forEach((section) => {
@@ -131,6 +137,7 @@ async function createPinnedSection() {
     const pinnedSection = highlightsSection.cloneNode(true);
     highlightsSection.parentElement.prepend(pinnedSection);
     pinnedSection.style.display = "table";
+    pinnedSection.setAttribute("id", "pinned-section");
     const titleElement = pinnedSection.querySelector(highlightTitleClass);
 
     const replaceMap = {
@@ -202,7 +209,7 @@ function init() {
   };
 
   updateSections(sections);
-  if (settings.showPinnedSection && !pinnedSectionCreated) {
+  if (settings.showPinned && !pinnedSectionCreated) {
     createPinnedSection();
   }
 }
