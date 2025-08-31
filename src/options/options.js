@@ -12,6 +12,19 @@ const toCamelCase = (str) => {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 };
 
+function getPlaceIDS() {
+  const placeIdInputContainer = document.getElementById("pinned-games");
+  const placeIds = [];
+
+  for (const input of placeIdInputContainer.children) {
+    if (input.tagName === "INPUT") {
+      placeIds.push(input.value);
+    }
+  }
+
+  return placeIds;
+}
+
 async function saveOptions(e) {
   e.preventDefault();
 
@@ -21,6 +34,9 @@ async function saveOptions(e) {
     obj[camelCaseId] = document.querySelector(`#${id}`).checked;
     return obj;
   }, {});
+
+  placeIds = getPlaceIDS();
+  options["pinnedGames"] = placeIds;
 
   console.log("options: ", options);
 
@@ -33,6 +49,18 @@ async function restoreOptions() {
   optionIds.forEach((id) => {
     document.querySelector(`#${id}`).checked = options[toCamelCase(id)];
   });
+
+  //load placeIDS
+  const placeIdInputContainer = document.getElementById("pinned-games");
+  placeIds = options["pinnedGames"];
+  for (const [index, input] of [...placeIdInputContainer.children].entries()) {
+    if (index > placeIds.length - 1) {
+      break;
+    }
+    if (input.tagName === "INPUT") {
+      input.value = placeIds[index];
+    }
+  }
 
   console.log("Options have been restored!");
 }

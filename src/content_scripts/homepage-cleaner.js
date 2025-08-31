@@ -18,6 +18,7 @@ const settings = {
   removeFavorites: false,
   removeFriends: false,
   showPinned: false,
+  pinnedGames: [],
 };
 
 let pinnedSectionCreated = false;

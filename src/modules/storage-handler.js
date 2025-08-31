@@ -14,6 +14,7 @@ self.storageUtils.getOptions = async function () {
       removeFavorites: false,
       removeFriends: false,
       showPinned: false,
+      pinnedGames: [],
     };
 
     const options = await browserAPI.storage.sync.get(defaults);
