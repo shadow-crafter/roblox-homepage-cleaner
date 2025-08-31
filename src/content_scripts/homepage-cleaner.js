@@ -191,7 +191,7 @@ async function createPinnedSection() {
 
         const gameInfoLabel = gameElement.querySelector(gameInfoLabelClass);
         if (gameInfoLabel) {
-          gameInfoLabel.textContent = gameInfo.gameData.builder;
+          gameInfoLabel.textContent = `By ${gameInfo.gameData.builder}`;
         }
 
         const pillContainer = gameElement.querySelector(gamePillsClass); //remove "event" notice if its there
