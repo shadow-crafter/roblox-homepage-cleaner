@@ -43,6 +43,11 @@ Once installed, you can click on the extension to open a popup to modify the set
 
 After making your selections and saving, <b>upon reloading the [Roblox homepage](https://www.roblox.com/home)</b> you should see your changes!!!
 
+### Pinned Section
+The extension has the option to enable a custom pinned section!
+
+This works similarly to favorites on Roblox, but instead the games are displayed much larger and at the top. It also allows you customize it easier than favorites. Only supports pinning up to four games currently.
+
 ## Contributing
 
 Contributing is welcome! This was mostly created as a side project for fun to learn some web development, but contributions are still welcome.
@@ -51,4 +56,4 @@ This project is also licenced under the MIT licence, so feel free to fork it and
 
 ## PLANNED FEATURES:
 
-### -Ability to add pinned games
+😊 All done for now!
