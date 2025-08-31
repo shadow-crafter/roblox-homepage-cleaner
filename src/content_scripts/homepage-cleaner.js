@@ -155,8 +155,9 @@ async function createPinnedSection() {
       gameElement.remove();
     }
 
-    const dummyGameData = ["18687417158", "12334109280"]; //for testing purposes
-    for (const placeId of dummyGameData) {
+    const pinnedPlaceIds = settings.pinnedGames;
+
+    for (const placeId of pinnedPlaceIds) {
       gameInfo = await getGameInfo(placeId);
       if (gameInfo) {
         const gameElement = gameBase.cloneNode(true);
