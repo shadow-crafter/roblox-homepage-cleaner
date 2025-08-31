@@ -167,7 +167,7 @@ async function createPinnedSection() {
         gameElement.querySelector("a").href = gameInfo.gameData.url;
         gameElement.querySelector(gameTitleClass).title =
           gameInfo.gameData.name;
-        gameElement.querySelector(gameTitleClass).innerHTML =
+        gameElement.querySelector(gameTitleClass).textContent =
           gameInfo.gameData.name;
 
         const gameThumbnail = gameElement.querySelector("img");
