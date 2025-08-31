@@ -198,6 +198,14 @@ async function createPinnedSection() {
         if (pillContainer) {
           pillContainer.remove();
         }
+
+        const scroller =
+          gameElement.parentElement.parentElement.parentElement.querySelector(
+            ".scroller-new"
+          ); //janky remove scroller
+        if (scroller) {
+          scroller.remove();
+        }
       }
     }
   }
